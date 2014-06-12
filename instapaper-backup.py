@@ -3,11 +3,7 @@ import urllib
 import csv
 import os
 import feedparser
-
-FILENAME = 'instapaper-export.csv'
-SAVE_DIR = 'articles/'
-RSS_URL = 'https://www.instapaper.com/rss/128118/kyinK0o0llflyQS05qeC1RzZ5E'
-
+from settings import *
 
 def clean(s):
    return "".join([c for c in s if c.isalpha() or c.isdigit() or c == ' ']).rstrip()
@@ -36,7 +32,7 @@ def get_article(url):
 
 
 def urls():
-    with open(FILENAME) as file_obj:
+    with open(IMPORT_FILE) as file_obj:
         reader = csv.DictReader(file_obj, delimiter=',')
         for line in reader:
             yield line
@@ -70,6 +66,7 @@ def start(rss=True):
 
 
 if __name__ == "__main__":
+    # TODO arg options
     start(rss=True)
     print 'done!'
 
